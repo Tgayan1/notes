@@ -156,6 +156,7 @@ return closuer_F
 ## Normalization Theory
 
 - Based on **Functional Dependencies** and **Multivalued Dependencies**.
+- Target -> Convert Bad relations/database 
 - Meaning : *Multivalued dependency*
 	- let $X,Y,Z$ be three sets of attributes. then Multivalued dependency means simply,
 		1. $X \rightarrow \rightarrow Y$
@@ -184,7 +185,7 @@ return closuer_F
 		- All attributes must be atomic.
 	2. There aren't any **Partial Dependencies**
 		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$. And if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then It is known as Partial dependency.
-		- In design PO
+		- In design POV: "no non-prime attribute is dependent on a part of a candidate key"
 
 EX:- Course Fee is Redundant.
 
