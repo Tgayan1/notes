@@ -156,7 +156,8 @@ return closuer_F
 ## Normalization Theory
 
 - Based on **Functional Dependencies** and **Multivalued Dependencies**.
-- Target -> Convert Bad relations/database 
+- Target:
+	- Convert Bad relation/database  design in to good one by *lossless decomposing* relations. 
 - Meaning : *Multivalued dependency*
 	- let $X,Y,Z$ be three sets of attributes. then Multivalued dependency means simply,
 		1. $X \rightarrow \rightarrow Y$
@@ -201,7 +202,8 @@ The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO
 ![[Pasted image 20260813133959.png|530]]
 
 - Student_Enrollments -> 2NF satisfied. ✅
-- Course_info -> 2NF satisfied.✅
+- Course_info -> 2NF satisfied. ✅
+- Redundancy resolved!  ✅
 
 #### Third Normal Form - 3NF
 
