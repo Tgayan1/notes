@@ -176,6 +176,7 @@ return closuer_F
 - This method Introduces higher redundancy. But with Higher Forms, we can further reduce the redundancy less than the first original table.
 
 ##### 2. Second Normal Form - 2NF
+
 - **Properties:** 
 	1. Must meet the 1NF
 		- All attributes must be atomic.
@@ -188,6 +189,14 @@ EX:- Course Fee is Redundant.
 
 The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO,COURSE\_NO,COURSE\_FEE)$$
  Each course has a Price.$$COURSE\_NO \rightarrow COURSE\_FEE$$
- Partial Dependency There.$$COURSE\_NO \ \subset \  (STUD\_NO,COURSE\_NO)$$
-Solution: Decompose it into Two relations. 
+ ***Partial Dependency There***.$$COURSE\_NO \ \subset \  (STUD\_NO,COURSE\_NO)$$
+**Solution**: Decompose it into Two relations. 
+	1. Student_Enrollments 
+	2. Course_info.
 
+![[Pasted image 20260813133959.png|530]]
+
+- Student_Enrollments -> 2NF satisfied. ✅
+- Course_info -> 2NF satisfied.✅
+
+#### Thrid Normal Fo
