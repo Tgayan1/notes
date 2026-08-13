@@ -171,17 +171,20 @@ return closuer_F
 
 ##### 1. First Normal Form - 1NF
 
-- **Properties :** Each attribute of a relation has an **atomic** (cannot further decompose the attribute) domain.
+- **Requirements :** 
+	- Each attribute of a relation has an **atomic** (cannot further decompose the attribute) domain.
+
 ![[ChatGPT Image Aug 13, 2026, 12_08_14 PM.png]]
 - This method Introduces higher redundancy. But with Higher Forms, we can further reduce the redundancy less than the first original table.
 
 ##### 2. Second Normal Form - 2NF
 
-- **Properties:** 
+- **Requirements:** 
 	1. Must meet the 1NF
 		- All attributes must be atomic.
 	2. There aren't any **Partial Dependencies**
 		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$. And if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then It is known as Partial dependency.
+		- In design PO
 
 EX:- Course Fee is Redundant.
 
@@ -199,4 +202,5 @@ The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO
 - Student_Enrollments -> 2NF satisfied. ✅
 - Course_info -> 2NF satisfied.✅
 
-#### Thrid Normal Fo
+#### Third Normal Form - 3NF
+
