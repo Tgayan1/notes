@@ -175,4 +175,5 @@ return closuer_F
 ![[ChatGPT Image Aug 13, 2026, 12_08_14 PM.png]]
 - This method Introduces higher redundancy. But with Higher Forms, we can further reduce the redundancy less than the first original table.
 
-##### 2. Boyce-Codd Normal Form - BCNF
+##### 2. Second Normal Form - 2NF
+- **Properties:** 
