@@ -207,3 +207,13 @@ The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO
 
 #### Third Normal Form - 3NF
 
+- **Requirements:**
+	1. Must Hold 2NF
+		- No *partial dependencies* must be there with prime and non-prime attributes.
+	2. No **Transitive Dependency** must be there with prime and non-prime attributes.
+		- *transitivity* :  $A \rightarrow B$ and $B \rightarrow C$ then $A \rightarrow C$
+		- For a relation $R$ let $X,Y$ be attribute sets which holds $X \rightarrow Y$. For all *non-trivial functional dependency*, at least one of the following must hold.
+			1. $X$ must be a super key.
+				- $X \rightarrow R$
+				- Avoids any transitivity.
+			2. If $X$ isn't  a super key, Then $Y$ must be a candidate key. 
