@@ -177,3 +177,7 @@ return closuer_F
 
 ##### 2. Second Normal Form - 2NF
 - **Properties:** 
+	1. Must meet the 1NF
+		- All attributes must be atomic.
+	2. There aren't any **Partial Dependencies**
+		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$. And if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then 
