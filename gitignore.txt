@@ -1,0 +1,6 @@
+.obsidian/workspace.json
+.obsidian/plugins/recent-files-obsidian/data.json
+*.exe
+*.ilk
+*.obj
+*.pdb
