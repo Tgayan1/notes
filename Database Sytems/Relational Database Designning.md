@@ -180,4 +180,9 @@ return closuer_F
 	1. Must meet the 1NF
 		- All attributes must be atomic.
 	2. There aren't any **Partial Dependencies**
-		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$. And if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then 
+		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$. And if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then It is known as Partial dependency.
+		![[Pasted image 20260813133040.png|428]]
+		- Candidate key -> (STUD_NO,COURSE_NO)
+		- $COURSE\_NO \rightarrow COURSE\_FEE$ (each course has a price)
+		- $COURSE\_NO \ \subset (STUD\_NO,COURSE\_NO)$
+
