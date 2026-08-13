@@ -184,9 +184,9 @@ return closuer_F
 - **Requirements:** 
 	1. Must meet the 1NF
 		- All attributes must be atomic.
-	2. There aren't any **Partial Dependencies**
-		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$. And if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then It is known as Partial dependency.
-		- In design POV: "no non-prime attribute is dependent on a part of a candidate key"
+	2. There aren't any **Partial Dependencies** between non-prime attributes and prime attributes.
+		- Let $\alpha \ , \beta$ be two attribute sets of $R$ such that $\alpha \rightarrow \beta$ and $\alpha \rightarrow R$. if $\exists  \ \gamma \subset \alpha$ such that $\gamma \rightarrow \beta$ , then $\beta$  has *Partial dependency* on $\alpha$.
+		- **"no non-prime attribute is dependent on a part of a candidate key"**
 
 EX:- Course Fee is Redundant.
 
