@@ -18,4 +18,4 @@
 	4. Biconditional Elimination$$\frac{\alpha \leftrightarrow \beta}{(\alpha \rightarrow \beta) \wedge (\beta \rightarrow \alpha)}$$
 	5. Distributive $$\frac{\alpha \wedge(\beta \vee \gamma)}{(\alpha \wedge\beta)\vee(\alpha \wedge\gamma)} \ \ or \ \ \frac{\alpha \vee(\beta \wedge \gamma)}{(\alpha \vee\beta)\wedge(\alpha \vee\gamma)} $$
 	6. De Morgan Laws$$\frac{\lnot(\alpha \vee \beta)}{\lnot\alpha\wedge\lnot\beta} \ \ or \ \ \frac{\lnot(\alpha \wedge \beta)}{\lnot\alpha\vee\lnot\beta}$$
-	7. 
+	7. Resolution$$\frac{(\alpha \vee \beta_1 \vee \beta_2...\vee\beta_n)\wedge\lnot \alpha}{\beta_1 \vee \beta_2...\beta_n}$$
