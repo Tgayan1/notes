@@ -15,4 +15,7 @@
 	1. Modus Phonons$$\frac{\alpha \rightarrow \beta ,\alpha}{\beta}$$
 	2. And Elimination$$\frac{\alpha \wedge \beta}{\alpha} \ \  or \ \ \frac{\alpha \wedge \beta}{\beta}$$
 	3. Implication Elimination$$\frac{\alpha \rightarrow \beta}{\lnot\alpha \vee \beta}$$
-	4. Biconditional Elimination
+	4. Biconditional Elimination$$\frac{\alpha \leftrightarrow \beta}{(\alpha \rightarrow \beta) \wedge (\beta \rightarrow \alpha)}$$
+	5. Distributive $$\frac{\alpha \wedge(\beta \vee \gamma)}{(\alpha \wedge\beta)\vee(\alpha \wedge\gamma)} \ \ or \ \ \frac{\alpha \vee(\beta \wedge \gamma)}{(\alpha \vee\beta)\wedge(\alpha \vee\gamma)} $$
+	6. De Morgan Laws$$\frac{\lnot(\alpha \vee \beta)}{\lnot\alpha\wedge\lnot\beta} \ \ or \ \ \frac{\lnot(\alpha \wedge \beta)}{\lnot\alpha\vee\lnot\beta}$$
+	7. 
