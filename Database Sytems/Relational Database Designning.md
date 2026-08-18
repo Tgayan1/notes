@@ -115,7 +115,8 @@ return closuer_F
 	- Canonical cover for functional dependency $F$; $F_c$ is the set which,
 		- Equivalent to $F$
 		- For each dependency, ==**RHS** only has single attribute==. And we can't remove any attribute from **LHS** without changing the $F^+$
-		- Cannot remove any dependency without removing any dependency. But *Redundant Dependencies* can be remove (Dependency which can derive from existing items).
+		- Cannot remove any dependency without changing $F^+$. 
+			- that is there isn't *Redundant Dependencies(same one) or transitive dependencies*.
 
 ![[WhatsApp Image 2026-08-13 at 8.13.40 AM.jpeg|480]]
 
