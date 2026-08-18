@@ -176,7 +176,7 @@ return closuer_F
 - Let $F_i \in F^+$ such that $F_i$ only includes attributes in $R_j \in R$.
 - So a a certain decomposition said to be dependency preserving is, all original functional dependencies can be achieved directly without joining each decomposed restations again.
 - Formally,$$(F_1 \cup F_2 \cup \dots \cup F_n)^+ = F^+$$
-- EX :
+- 
 #### Normal Forms
 
 ##### 1. First Normal Form - 1NF
