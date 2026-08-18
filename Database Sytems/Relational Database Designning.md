@@ -218,6 +218,7 @@ The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO
 				- Avoids any transitivity.
 			2. If $X$ isn't  a super key, Then $Y$ must be a candidate key/ part of candidate key.
 				- If Y is a prime attribute, we allow the dependency because it involves candidate-key information, and decomposing it solely to eliminate this dependency may unnecessarily disrupt the relation's key structure.
-![[ChatGPT Image Aug 18, 2026, 07_58_34 AM.png|584]]
+
+![[ChatGPT Image Aug 18, 2026, 07_58_34 AM.png|653]]
 
 
