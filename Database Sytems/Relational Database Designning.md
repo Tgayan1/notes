@@ -227,4 +227,4 @@ The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO
 	1. Relation must satisfy 3NF.
 		- That is No transitive dependencies are allowed.
 	2. For all functional dependencies, RHS must be the super key.
-		- That is
+		- That is $\forall \ (x \rightarrow y)$ : $x$ must be the super key.
