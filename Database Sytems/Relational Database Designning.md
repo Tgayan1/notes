@@ -221,4 +221,10 @@ The Candidate Key For Courses Table$$(STUD\_NO,COURSE\_NO) \rightarrow (STUD\_NO
 
 ![[ChatGPT Image Aug 18, 2026, 07_58_34 AM.png|653]]
 
+#### Boyce-Codd Normal Form - BCNF
 
+- **Requirements**:
+	1. Relation must satisfy 3NF.
+		- That is No transitive dependencies are allowed.
+	2. For all functional dependencies, RHS must be the super key.
+		- That is
