@@ -170,6 +170,13 @@ return closuer_F
 #### Decomposing Relations
 
 ![[Pasted image 20260813103100.png|565]]
+#### Dependency Preservation
+- Let R be a relation and lets decompose it $R = R_1,R_2,R_3...,R_i$
+- Let F be functional dependencies of R. so, $F = F_1,F_2F_3...,F_n$
+- Let $F_i \in F^+$ such that $F_i$ only includes attributes in $R_j \in R$.
+- So a a certain decomposition said to be dependency preserving is, all original functional dependencies can be achieved directly without joining each decomposed restations again.
+- Formally,$$(F_1 \cup F_2 \cup \dots \cup F_n)^+ = F^+$$
+- EX :
 #### Normal Forms
 
 ##### 1. First Normal Form - 1NF
