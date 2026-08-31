@@ -1,1 +1,0 @@
-$$m = \left\lceil -\frac{n \ln p}{(\ln 2)^2} \right\rceil$$$$k = \max\left(1, \text{round}\left(\frac{m}{n}\ln 2\right)\right)$$
