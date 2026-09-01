@@ -66,3 +66,44 @@ EXEC dbo.UpdateStock @productId = 101, @qtySold = 3;
 
 - Use a **Function** when you need a **value** inside a query.
 - Use a **Procedure** when you need to **perform actions** or **modify data**.
+
+
+Authorization
+- only Give the minimal privilege for the users.
+
+```sql
+-- 1. Create a new database
+CREATE DATABASE company_db;
+
+-- 2. Create a sample table
+USE company_db;
+CREATE TABLE employees (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    salary DECIMAL(10,2) NOT NULL
+);
+
+-- 3. Create a new user (with password)
+CREATE USER 'report_user'@'localhost' IDENTIFIED BY 'StrongPass123!';
+
+-- 4. Grant SELECT privilege on the employees table to the user
+GRANT SELECT ON company_db.employees TO 'report_user'@'localhost';
+
+-- 5. Apply changes (important in MySQL)
+FLUSH PRIVILEGES;
+
+-- 6. Now 'report_user' can only read data:
+--    SELECT * FROM company_db.employees;
+
+-- 7. Grant INSERT privilege as well
+GRANT INSERT ON company_db.employees TO 'report_user'@'localhost';
+FLUSH PRIVILEGES;
+
+-- 8. Revoke INSERT privilege (remove write access)
+REVOKE INSERT ON company_db.employees FROM 'report_user'@'localhost';
+FLUSH PRIVILEGES;
+
+-- 9. Remove all privileges from the user (optional cleanup)
+REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'report_user'@'localhost';
+
+```
