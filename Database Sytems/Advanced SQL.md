@@ -17,3 +17,9 @@ Name vs Position foe getting result attributes
 Prepared statements
 - Prevent SQL Injection
 - Prepared statements will caches by the database.
+
+Database metadata
+- Describes about the database
+	- Row counts
+	- Column count
+	- Tables
