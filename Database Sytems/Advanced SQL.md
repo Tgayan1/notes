@@ -1,6 +1,6 @@
 ![[CS3043 - Advanced SQL (1).pdf]]
 
-Database configurations
+Database configuration
 - Database URL
 - Username
 - Password
@@ -23,3 +23,6 @@ Database metadata
 	- Row counts
 	- Column count
 	- Tables
+
+Embedded SQL
+- Embedded SQL is best when *performance, reliability, and tight integration with procedural code matter* especially in **banking, insurance, healthcare, and telecom batch systems**.
