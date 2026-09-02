@@ -6,3 +6,9 @@
 
 - Process Queues
 	1. Ready Queue -> Ones the CPU can be burst / utilize time for execute (FIFO/LIFO etc...)
+	2. ---
+
+
+![[ch5-Part2.pdf]]
+
+- Gantt Chart -> 
