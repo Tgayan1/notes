@@ -46,18 +46,18 @@ Embedded SQL
 
 **Function:**
 ```sql
-# Function:
+-- Function:
 CREATE FUNCTION dbo.GetTotalPrice(@qty INT, @price DECIMAL(10,2)) RETURNS DECIMAL(10,2) AS BEGIN     RETURN @qty * @price; END;
 
-# Usage:
+-- Usage:
 SELECT dbo.GetTotalPrice(5, 20.00) AS TotalPrice;
 
-#########################################################################
+-------------------------------------------------------------
 
-# Procedure:
+-- Procedure:
 CREATE PROCEDURE dbo.UpdateStock     @productId INT,     @qtySold INT AS BEGIN     UPDATE Products     SET Stock = Stock - @qtySold     WHERE ProductID = @productId; END;
 
-# Usage:
+-- Usage:
 EXEC dbo.UpdateStock @productId = 101, @qtySold = 3;
 
 ```
