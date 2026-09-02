@@ -2,6 +2,7 @@
 
 - Expectation -> Maximum CPU Utilization
 - Burst -> Time period utilizes for a process by CPU
+- Preemptive ->
 
 - Process Queues
 	1. Ready Queue -> Ones the CPU can be burst / utilize time for execute (FIFO/LIFO etc...)
