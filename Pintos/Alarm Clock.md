@@ -89,6 +89,7 @@ struct list
 
                      - offsetof (STRUCT, MEMBER.next)))
   ```
+  
 
 - **Appendix:** Threads
 
