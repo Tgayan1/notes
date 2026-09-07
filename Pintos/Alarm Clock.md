@@ -115,3 +115,61 @@ void thread_exit (void) NO_RETURN;  /** make thread status into dying for make i
 
 /** For more Details See src/threads/thread.h and src/thread/thread.c */  
 ```
+
+
+**Code Edits:**
+
+```run-c
+
+// src/devices/timer.c
+
+
+/** Alarm Clock Implementation*/
+
+static struct list sleep_list;
+
+static bool
+wake_tick_less(const struct list_elem *a, const struct list_elem *b, void *aux UNUSED) {
+    struct thread *ta = list_entry(a, struct thread, elem);
+    struct thread *tb = list_entry(b, struct thread, elem);
+    return ta->wake_tick < tb->wake_tick;
+}
+
+   
+void
+timer_sleep (int64_t ticks)
+{
+  int64_t start = timer_ticks ();
+  ASSERT (intr_get_level () == INTR_ON);
+  struct thread* t = thread_current();
+  enum intr_level old_level = intr_disable();
+  t->wake_tick = start + ticks;
+  
+  list_insert_ordered(&sleep_list,&t->elem,wake_tick_less,NULL);
+
+  thread_block();
+  intr_set_level(old_level);
+}
+
+static void
+timer_interrupt (struct intr_frame *args UNUSED)
+{
+  ticks++;
+  thread_tick ();
+
+  /**Alarm Clock Implementation*/
+
+  while(!list_empty(&sleep_list)){
+    struct thread *t = list_entry(list_front(&sleep_list),struct thread,elem);
+
+    if (t->wake_tick > ticks){
+      break;
+    }
+
+    list_pop_front(&sleep_list);
+    thread_unblock(t);
+  }
+}
+```
+
+- We introduce `int64_t wake_tick` property for `thread` to store the sleeping ticks.
