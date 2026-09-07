@@ -33,7 +33,7 @@ static struct list ready_list;
 - So, We gonna use **Intrusive Linked List** structure.
 
 - **Appendix** : Intrusive Linked List
-	- Instead wrapping data or our target object (*thread* ) around Node;
+	- Instead wrapping data or our target object (*thread*) around Node;
 	- ```run-c
 	  struct Node{
 		  int data;
