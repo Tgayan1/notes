@@ -68,6 +68,14 @@ thread_unblock (struct thread *t)
 
 ### Problem -> Implementing Priority Scheduling
 
+```run-c
+/** Thread priorities. */
+
+#define PRI_MIN 0                       /**< Lowest priority. */
+#define PRI_DEFAULT 31                  /**< Default priority. */
+#define PRI_MAX 63                      /**< Highest priority. */
+```
+
 - In order to implement this, we need to fulfill 3 requirements. 
 
 ##### REQ-1 : When a thread is added to the ready list that has a higher priority than the currently running thread, the current thread should immediately yield the processor to the new thread
