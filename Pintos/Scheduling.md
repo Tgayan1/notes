@@ -198,6 +198,8 @@ sema_down (struct semaphore *sema)
       list_insert_ordered(&sema->waiters,&thread_current()->elem,priority_grater,NULL);
 
       thread_block ();
+      
+      list_remove(&thread_current()->elem);
     }
 
   sema->value--;
