@@ -4,8 +4,10 @@
 	- Provide specific time period for a thread to be execute. When the time period/ time *quantum* is expired, it yields the CPU for the next Thread to be run.
 	- ![[Pasted image 20260908140546.png|455]]
 
-- On the current Setup, Interrupt Handling works Like this.
+- **Appendix**: Interrupt Handler
+	- On the current Setup, Interrupt Handling works Like this.
 ![[timer_interrupt_flow_no_priority.png|364]]
+
 
 - Thread A, stops keeping the `eip`/`eflags` of the `intterupt_handler()` and eventually unwind the stack into its normal stop point of `baz()`. (like returning from a typical function)
 - So, `interrupt_handler()` works within the thread stack,  just a stack frame like a function frame of a typical C program. So to get back normal execution, we need to clear that frame (+ sum other things)
@@ -164,6 +166,7 @@ void thread_unblock(struct thread *t)
 ##### REQ2: When threads are waiting for a lock, semaphore, or condition variable, the highest priority waiting thread should be awakened first
 
 - **Appendix**: Synchronization Primitives.
+
 	1. **Semaphores** 
 		- An `unsigned` integer value with a list of `waiters`.
 		- If a sharable resource need concurrency, we can assign a semaphore to that resource. 
@@ -172,8 +175,10 @@ void thread_unblock(struct thread *t)
 			- `sema_try_down()` -> acquires the semaphore and returns if that acquire is success full or not via a`bool`. **Can use within interrupt context**.
 				- ex: `KeyboardInterrupt` can ask to acquire a resource to write. if can't we can program to write the data temporally in a buffer in the `handler()`.
 			- `sema_up()` -> Releases the semaphore by incrementing it's value
+
 	2. **Locks**
 		- A **Binary Semaphore** which only capable of allocate a resource for a one thread at a time
+
 	3. **Conditional Variables**
 		- If a resource need to kept locked on more that one reason, we use them.
 		- It is a list of semaphores. 
@@ -235,3 +240,50 @@ bool cond_greater_priority(const struct list_elem *a, const struct list_elem *b,
 
 }
 ```
+
+- Like we have did previous, we change `list_push_back()` in to `list_insert_ordered()` in `cond_wait()`.
+
+```run-c
+void
+cond_wait (struct condition *cond, struct lock *lock)
+{
+
+  struct semaphore_elem waiter;
+
+  ASSERT (cond != NULL);
+  ASSERT (lock != NULL);
+  ASSERT (!intr_context ());
+  ASSERT (lock_held_by_current_thread (lock));
+
+  sema_init (&waiter.semaphore, 0);
+
+  list_insert_ordered (&cond->waiters, &waiter.elem,cond_greater_priority,NULL);
+  
+  lock_release (lock);
+  sema_down (&waiter.semaphore);
+  lock_acquire (lock);
+}
+```
+
+##### REQ3: A thread may raise or lower its own priority at any time, but lowering its priority such that it no longer has the highest priority must cause it to immediately yield the CPU.
+
+- To change the priority of current thread, we can use `thread_set-priority()` method. 
+- To full fill the requirement, we need to add that preemption check in here.
+- And priority change happens within the thread context. so we don't need the check for interrupt context.
+
+```run-c
+void thread_set_priority(int new_priority)
+{
+  thread_current()->priority = new_priority;
+
+  if(!list_empty(&ready_list)){
+
+    struct thread *nt = list_entry(list_front(&ready_list),struct thread,elem);
+    if(nt->priority > thread_current()->priority){
+      thread_yield();
+    }
+  }
+}
+```
+
+
