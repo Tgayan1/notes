@@ -141,7 +141,7 @@ void thread_unblock(struct thread *t)
   list_insert_ordered(&ready_list, &t->elem, priority_grater, NULL);
 
   t->status = THREAD_READY;
-
+// compare priority with current running thread vs new unblocked thread
   if (t->priority > thread_get_priority())
 
   {
@@ -159,3 +159,51 @@ void thread_unblock(struct thread *t)
 }
 
 ```
+
+
+##### REQ2: When threads are waiting for a lock, semaphore, or condition variable, the highest priority waiting thread should be awakened first
+
+- **Appendix**: Synchronization Primitives.
+1. **Semaphores** 
+	- An `unsigned` integer value with a list of `waiters`.
+	- If a sharable resource need concurrency, we can assign a semaphore to that resource. 
+	- Important Operations
+		- `sema_down()` -> acquires the semaphore by decrementing it's value. if already acquired by a thread, put current thread into it's `waiters` list. **Don't use in interrupt context** (interrupt handler is not a `thread`)
+		- `sema_try_down()` -> acquires the semaphore and returns if that acquire is success full or not via a`bool`. **Can use within interrupt context**.
+			- ex: `KeyboardInterrupt` can ask to acquire a resource to write. if can't we can program to write the data temporally in a buffer in the `handler()`.
+		- `sema_up()` -> Releases the semaphore by incrementing it's value
+2. **Locks**
+	- A **Binary Semaphore** which only capable of allocate a resource for a one thread at a time
+3. **Conditional Variables**
+	- If a resource need to kept locked on more that one reason, we use them.
+
+
+
+- In order to pick the highest priority thread to give the chance, we use the same mechanism. convert waiter lists in to higher priority queues.
+
+```run-c
+void
+sema_down (struct semaphore *sema)
+
+{
+  enum intr_level old_level;
+
+  ASSERT (sema != NULL);
+  ASSERT (!intr_context ());
+  
+  old_level = intr_disable ();
+
+  while (sema->value == 0)
+    {
+      list_insert_ordered(&sema->waiters,&thread_current()->elem,priority_grater,NULL);
+
+      thread_block ();
+    }
+
+  sema->value--;
+
+  intr_set_level (old_level);
+}
+```
+
+- Since, we have already implemented the preemption check (compares current thread with unblocked new thread) at `thread_unblock()`,we don't require to change `sema_up()`. 
