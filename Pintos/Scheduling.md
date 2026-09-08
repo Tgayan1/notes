@@ -78,14 +78,14 @@ thread_unblock (struct thread *t)
 
 - In order to implement this, we need to fulfill 3 requirements. 
 
-##### REQ-1 : When a thread is added to the ready list that has a higher priority than the currently running thread, the current thread should immediately yield the processor to the new thread
+##### REQ-1 : When a thread is added to the ready list that has a higher priority than the currently running thread, the current thread should immediately yield the processor to the new thread.
 
 **Solution** : 
 - Convert Normal Ready List into High Priority Queue. `solves selecting highest priority`
 	- We can implement comparator function for select the greater one and use it in both `thread_yield()` and `thread_unblock()` for `list_insert_ordered()` method.
 
 ```run-c
-bool priority_grater(const struct list_elem *a, const struct list_elem *b, void *aux UNUSED)
+bool priority_greater(const struct list_elem *a, const struct list_elem *b, void *aux UNUSED)
 {
   struct thread *ta = list_entry(a, struct thread, elem);
   struct thread *tb = list_entry(b, struct thread, elem);
@@ -98,15 +98,15 @@ bool priority_grater(const struct list_elem *a, const struct list_elem *b, void 
 
 - **Appendix:** `Interrupt Context` vs `Thread Context` 
 	- **Thread context** — the CPU is executing a thread's own code directly; nothing is interrupting it right now.
-	- **Interrupt context** — the CPU is executing interrupt-handling code that has been layered on top of whichever thread happened to be running when the interrupt fired — using that thread's stack, with an obligation (the hardware contract) to finish and `iret` back to resume that same thread, unless a yield gets triggered along the way. 
+	- **Interrupt context** — the CPU is executing interrupt-handling code that has been layered on top of whichever thread happened to be running when the interrupt fired  using that thread's stack, with an obligation (the hardware contract) to finish and `iret` back to resume that same thread, unless a yield gets triggered along the way. 
 
 - **If thread requires to obtain the CPU within the interrupt context (ex: waking up sleeping thread) we cannot use `thread_yield()`.** Because *within the interrupt context, if we try to switch context without letting the hardware completion on the interrupt, it will crash the OS.* 
 
 - So, If we need to give the priority and yield CPU in `interrupt_context`, we have to use `intr_yield_on_return()` method. It will safely completes the hardware completion and then do the context switch via `schedule()`.
 
 - **Appendix:** `intr_yield_on_return()`
-	- A Boolean flag set to `TRUE`, When the interrupt context successfully completes and yielding is required within the interrupt context. It is gonna check before windup/clear the entire interrupt handling frame from the current thread. If it `TRUE`, It will perform the context switch via `shedule()`.
-- So we only need add this preemption check to `thread_unblock()`. (`thread_yield()` calls by ruining thread so preemption check is not making sense).
+	- A Boolean flag set to `TRUE`, When the interrupt context successfully completes and yielding is required within the interrupt context. It is gonna check before windup/clear the entire interrupt handling frame from the current thread. If it `TRUE`, It will perform the context switch via `shedule()` safely.
+- So we only need add this preemption check to `thread_unblock()`. (`thread_yield()` calls by  currently ruining thread so preemption check is not making sense).
 
 ```run-c
 void thread_yield(void)
@@ -164,20 +164,21 @@ void thread_unblock(struct thread *t)
 ##### REQ2: When threads are waiting for a lock, semaphore, or condition variable, the highest priority waiting thread should be awakened first
 
 - **Appendix**: Synchronization Primitives.
-1. **Semaphores** 
-	- An `unsigned` integer value with a list of `waiters`.
-	- If a sharable resource need concurrency, we can assign a semaphore to that resource. 
-	- Important Operations
-		- `sema_down()` -> acquires the semaphore by decrementing it's value. if already acquired by a thread, put current thread into it's `waiters` list. **Don't use in interrupt context** (interrupt handler is not a `thread`)
-		- `sema_try_down()` -> acquires the semaphore and returns if that acquire is success full or not via a`bool`. **Can use within interrupt context**.
-			- ex: `KeyboardInterrupt` can ask to acquire a resource to write. if can't we can program to write the data temporally in a buffer in the `handler()`.
-		- `sema_up()` -> Releases the semaphore by incrementing it's value
-2. **Locks**
-	- A **Binary Semaphore** which only capable of allocate a resource for a one thread at a time
-3. **Conditional Variables**
-	- If a resource need to kept locked on more that one reason, we use them.
-
-
+	1. **Semaphores** 
+		- An `unsigned` integer value with a list of `waiters`.
+		- If a sharable resource need concurrency, we can assign a semaphore to that resource. 
+		- Important Operations
+			- `sema_down()` -> acquires the semaphore by decrementing it's value. if already acquired by a thread, put current thread into it's `waiters` list. **Don't use in interrupt context** (interrupt handler is not a `thread`)
+			- `sema_try_down()` -> acquires the semaphore and returns if that acquire is success full or not via a`bool`. **Can use within interrupt context**.
+				- ex: `KeyboardInterrupt` can ask to acquire a resource to write. if can't we can program to write the data temporally in a buffer in the `handler()`.
+			- `sema_up()` -> Releases the semaphore by incrementing it's value
+	2. **Locks**
+		- A **Binary Semaphore** which only capable of allocate a resource for a one thread at a time
+	3. **Conditional Variables**
+		- If a resource need to kept locked on more that one reason, we use them.
+		- It is a list of semaphores. 
+		- Each semaphore has it's own list.
+	
 
 - In order to pick the highest priority thread to give the chance, we use the same mechanism. convert waiter lists in to higher priority queues.
 
@@ -198,8 +199,6 @@ sema_down (struct semaphore *sema)
       list_insert_ordered(&sema->waiters,&thread_current()->elem,priority_grater,NULL);
 
       thread_block ();
-      
-      list_remove(&thread_current()->elem);
     }
 
   sema->value--;
@@ -208,4 +207,31 @@ sema_down (struct semaphore *sema)
 }
 ```
 
-- Since, we have already implemented the preemption check (compares current thread with unblocked new thread) at `thread_unblock()`,we don't require to change `sema_up()`. 
+- Since, we have already implemented the preemption check (compares current thread with unblocked new thread) at `thread_unblock()`,we don't require to change `sema_up()` { which internally calls `thread_unblock()`}. 
+
+- Since `Lock` is simply a `semaphor`, we have already completed that one.
+
+- Conditional variable is a list of `semaphore`, which arranged as `semaphore_elem`
+- ```run-c
+  struct semaphore_elem
+  {
+    struct list_elem elem;              /**< List element. */
+    struct semaphore semaphore;         /**< This semaphore. */
+  };
+  ```
+  
+  - each semaphore's `waiter_list` is already sorted into highest priority. so for the comparison, we extract each list member's front one (`thread`) for the comparison.
+
+```run-c
+bool cond_greater_priority(const struct list_elem *a, const struct list_elem *b, void *aux UNUSED){
+
+  struct semaphore *sa = list_entry(a,struct semaphore_elem, elem);
+  struct semaphore *sb = list_entry(b,struct semaphore_elem, elem);
+
+  struct thread *ta = list_entry(list_front(&sa->waiters),struct thread,elem);
+  struct thread *tb = list_entry(list_front(&sb->waiters),struct thread,elem);
+
+  return ta->priority > tb->priority;
+
+}
+```
