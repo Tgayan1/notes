@@ -61,3 +61,7 @@ thread_unblock (struct thread *t)
 ```
 
 - Using above functions, `Semaphore`,`Lock`,`Conditional Variables` etc. will eventually edit the ready list.
+
+
+### Problem -> Implementing Priority Scheduling
+
