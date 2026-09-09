@@ -34,5 +34,7 @@ b) (3+(3+6) + (3+6+7)) /4 = 7
 
 ![[Ch5 - Part 4 -Slides only.pdf]]
 
+- *NUMA* - **N**on **U**niform **M**emory **A**ccess.
+
 
 ![[Ch 5 - Part 5.pdf]]
