@@ -32,10 +32,6 @@ b) (3+(3+6) + (3+6+7)) /4 = 7
 - **SCS** - One-to-One
 
 
-
-
-
-
 ![[Ch5 - Part 4 -Slides only.pdf]]
 
 
