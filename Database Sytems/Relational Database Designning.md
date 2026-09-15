@@ -1,3 +1,4 @@
+
 ## Normalization
 #### Idea -> Obtain a well structured Relation / Database design
 
