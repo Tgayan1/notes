@@ -12,7 +12,7 @@ Graph:
 
 BreadthFirstSearch(Graph,dest):
 	q = Queue()
-	route = Array()
+	predecessor = Map()
 	visited = Set()
 	q.push(Graph.root)
 	while(!q.isEmpty()):
@@ -23,12 +23,13 @@ BreadthFirstSearch(Graph,dest):
 			
 		q.pop()
 		visited.add(root)
-		route.pushBack(root)
+		predecessor.add(root,null)
 		
 		for each neb of Graph.struct[root]:
 			if (!visited.has(neb)):
 				visited.add(neb)
+				predecessor.add(neb,root)
 				q.push(neb)
-	return route
+	return predecessor
 			
 ```
