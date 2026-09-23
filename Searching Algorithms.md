@@ -110,15 +110,19 @@ Dijkastra(Graph,Dest):
 	pq.push((Graph.root,0))
 	
 	while(!pq.empty()):
-		root = pq.front()
+		(root,d) = pq.front()
 		pq.pop()
 		
+		if(d > dist[root]):
+			continue
+			
 		for each neb of Graph.struct[root]:
 			node = neb[0]
 			w_a = neb[1]
 			
-			if(dist[node] < dist[root] + w_a):
-				continue
+			if(dist[node] > dist[root] + w_a):
+				dist[node] = dist[root] + w_a
+				pq.push(node,dist[node])
 			
 			
 ```
