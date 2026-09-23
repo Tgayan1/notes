@@ -10,6 +10,15 @@ Graph:
 		B:D,E
 		C:F
 
+GetPath(map,leaf):
+	current = leaf
+	path = Array()
+	while(current != null):
+		path.pushBack(current)
+		current = map(current)
+	path.reverse()
+	return path
+
 BreadthFirstSearch(Graph,dest):
 	q = Queue()
 	predecessor = Map()
@@ -30,6 +39,6 @@ BreadthFirstSearch(Graph,dest):
 				visited.add(neb)
 				predecessor.add(neb,root)
 				q.push(neb)
-	return predecessor
+	return GetPath(predecessor,dest)
 			
 ```
