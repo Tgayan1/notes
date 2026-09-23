@@ -1,6 +1,6 @@
 ### Uninformed Algorithms
 
-#### 1.Breadth First Search
+#### 1.Breadth First Search - Complete and Optimal when all edges are equal
 
 ```
 Graph:
@@ -47,7 +47,7 @@ BreadthFirstSearch(Graph,dest):
 			
 ```
 
-#### 2. Depth First Search
+#### 2. Depth First Search - Complete but Not optimal (gives the first result)
 
 ```
 Graph:
@@ -89,4 +89,18 @@ DepthFirstSearch(Graph,dest):
 				
 	return GetPath(predecessor,dest)	
 			
+```
+
+#### 3.Dijkastra Algorithm - Complete Optimal for Uneven edges
+
+```
+Graph:
+	root:A
+	struct:
+		A: (B,w1),(C,w2)
+		B: (D,w3),(E,w4)
+		C: (F,w5)
+		
+Dijkastra(Graph,Dest):
+	
 ```
