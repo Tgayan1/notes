@@ -1,5 +1,5 @@
 {
-  "lastOpenLanguageTab": "sql",
+  "lastOpenLanguageTab": "python",
   "releaseNote2_1_0wasShowed": true,
   "persistentOuput": true,
   "timeout": 10000,
@@ -58,7 +58,7 @@
   "csArgs": "",
   "csFileExtension": "csx",
   "csInject": "",
-  "pythonPath": "python",
+  "pythonPath": "C:/Users/gthar/AppData/Local/Microsoft/WindowsApps/python3.exe",
   "pythonArgs": "",
   "pythonEmbedPlots": true,
   "pythonFileExtension": "py",
