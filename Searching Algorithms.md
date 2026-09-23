@@ -21,9 +21,12 @@ GetPath(map,leaf):
 
 BreadthFirstSearch(Graph,dest):
 	q = Queue()
+	
 	predecessor = Map()
+	
 	visited = Set()
 	q.push(Graph.root)
+	
 	while(!q.isEmpty()):
 		root = q.front()
 		
@@ -39,6 +42,27 @@ BreadthFirstSearch(Graph,dest):
 				visited.add(neb)
 				predecessor.add(neb,root)
 				q.push(neb)
+				
 	return GetPath(predecessor,dest)
+			
+```
+
+#### 2. Depth First Search
+
+```
+Graph:
+	root:A
+	struct:
+		A:B,C
+		B:D,E
+		C:F
+		
+DepthFirstSearch(Graph,dest):
+	s = Stack()
+	visited = set()
+	s.push(Graph.root)
+	while(!s.isEmpty()):
+		root = s.pop()
+		for each neb of Graph.struct[root]:
 			
 ```
