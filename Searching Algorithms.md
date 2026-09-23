@@ -56,20 +56,37 @@ Graph:
 		A:B,C
 		B:D,E
 		C:F
+
+GetPath(map,leaf):
+	current = leaf
+	path = Array()
+	while(current != null):
+		path.pushBack(current)
+		current = map(current)
+	path.reverse()
+	return path
 		
 DepthFirstSearch(Graph,dest):
 	s = Stack()
-	visited = set()
+	visited = Set()
+	predecessor = Map()
+	
+	predecessor.add(Graph.root,null)
 	s.push(Graph.root)
 	visited.add(Graph.root)
+	
 	while(!s.isEmpty()):
-		root = s.pop()                            
+		root = s.pop()  
+		                          
 		if root == dest:
 			break
+			
 		for each neb of Graph.struct[root]:
 			if(!visited.has(neb)):
 				visited.add(neb)
 				s.push(neb)
-			
+				predecessor.add(neb,root)
+				
+	return GetPath(predecessor,dest)	
 			
 ```
