@@ -91,7 +91,7 @@ DepthFirstSearch(Graph,dest):
 			
 ```
 
-#### 3.Dijkastra Algorithm - Complete Optimal for Uneven edges
+#### 3.Dijkastra Algorithm - Complete Optimal for Uneven edges with non negative weights
 
 ```
 Graph:
@@ -101,13 +101,29 @@ Graph:
 		B: (D,w3),(E,w4)
 		C: (F,w5)
 		
+GetPath(map,leaf):
+	current = leaf
+	path = Array()
+	while(current != null):
+		path.pushBack(current)
+		current = map(current)
+	path.reverse()
+	return path
+	
+		
 Dijkastra(Graph,Dest):
 	dist = Map()
+	predecessor = map()
+	
+	predecessor.add(Graph.root,null)
+	
 	for each node [A,B,C,D,E,F]:
 		dist[node] = infinity
 	
+	dist[Graph.root] = 0
+	
 	pq = PriorityQueue()
-	pq.push((Graph.root,0))
+	pq.push((0,Graph.root))
 	
 	while(!pq.empty()):
 		(root,d) = pq.front()
@@ -122,7 +138,8 @@ Dijkastra(Graph,Dest):
 			
 			if(dist[node] > dist[root] + w_a):
 				dist[node] = dist[root] + w_a
-				pq.push(node,dist[node])
-			
-			
+				pq.push(dist[node],node)
+				predecessor.app(node,root)
+	
+	return GetPath(predecessor,dest)			
 ```
