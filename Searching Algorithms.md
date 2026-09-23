@@ -61,8 +61,15 @@ DepthFirstSearch(Graph,dest):
 	s = Stack()
 	visited = set()
 	s.push(Graph.root)
+	visited.add(Graph.root)
 	while(!s.isEmpty()):
-		root = s.pop()
+		root = s.pop()                            
+		if root == dest:
+			break
 		for each neb of Graph.struct[root]:
+			if(!visited.has(neb)):
+				visited.add(neb)
+				s.push(neb)
+			
 			
 ```
