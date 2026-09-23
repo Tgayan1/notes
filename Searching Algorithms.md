@@ -102,5 +102,23 @@ Graph:
 		C: (F,w5)
 		
 Dijkastra(Graph,Dest):
+	dist = Map()
+	for each node [A,B,C,D,E,F]:
+		dist[node] = infinity
 	
+	pq = PriorityQueue()
+	pq.push((Graph.root,0))
+	
+	while(!pq.empty()):
+		root = pq.front()
+		pq.pop()
+		
+		for each neb of Graph.struct[root]:
+			node = neb[0]
+			w_a = neb[1]
+			
+			if(dist[node] < dist[root] + w_a):
+				continue
+			
+			
 ```
