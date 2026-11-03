@@ -171,6 +171,9 @@ return closuer_F
 #### Decomposing Relations
 
 ![[Pasted image 20260813103100.png|565]]
+**A decomposition of $R$ into $R_1$ and $R_2$ is *lossless* if and only if the intersection of their attributes functionally determines at least one of the relations fully **:
+$$(R_1 \cap R_2) \rightarrow R_1 \ \ OR \ \  (R_1 \cap R_2) \rightarrow R_2$$
+
 #### Dependency Preservation
 - Let R be a relation and lets decompose it $R = R_1,R_2,R_3...,R_i$
 - Let F be functional dependencies of R. so, $F = F_1,F_2F_3...,F_n$
