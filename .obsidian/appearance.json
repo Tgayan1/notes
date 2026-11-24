@@ -1,5 +1,6 @@
 {
   "baseFontSize": 18,
   "theme": "moonstone",
-  "accentColor": "#5c7bf5"
+  "accentColor": "#5c7bf5",
+  "showRibbon": true
 }
